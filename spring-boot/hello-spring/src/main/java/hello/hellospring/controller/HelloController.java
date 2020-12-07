@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HelloController {
 
+    // http://localhost:8080/hello
     @GetMapping("hello")
     public String hello(Model model) {
         // model.addAttribute(key, value);
@@ -19,12 +20,14 @@ public class HelloController {
         return "hello";
     }
 
+    // http://localhost:8080/hello-mvc?name=spring
     @GetMapping("hello-mvc")
     public String helloMvc(@RequestParam("name") String name, Model model) {
         model.addAttribute("name", name);
         return "hello-template";
     }
 
+    // http://localhost:8080/hello-string?name=spring!!!!
     @GetMapping("hello-string")
     @ResponseBody // http body 에 해당 데이터를 직접 넣어주겠다.
     public String helloString(@RequestParam("name") String name) {
@@ -34,6 +37,7 @@ public class HelloController {
         return "hello " + name;
     }
 
+    // http://localhost:8080/hello-api?name=spring
     @GetMapping("hello-api")
     @ResponseBody // json 반환 디폴트 세팅
     public Hello helloApi(@RequestParam("name") String name) {
@@ -43,7 +47,6 @@ public class HelloController {
         // json 형식 : {"name":"spring"}
         return hello; // 객체 넘기기
     }
-
 
     // HelloController.Hello 클래스로 사용 가능함
     static class Hello {

@@ -4,9 +4,13 @@ import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public class MemberService {
+
+    // Service 쪽 용어는 비즈니스에 의존적으로 설계함 - 비개발자가 와서 봐도 무슨 기능인지 알 수 있도록
+    // Repository 쪽 용어는 기계적(개발)으로 설계함
 
     private final MemberRepository memberRepository = new MemoryMemberRepository();
 
@@ -49,5 +53,19 @@ public class MemberService {
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 회원입니다.");
                 });
+    }
+
+    /**
+     * 전체 회원 조회
+     */
+    public List<Member> findMembers() {
+        return memberRepository.findAll();
+    }
+
+    /**
+     * 특정 회원 조회
+     */
+    public Optional<Member> findOne(Long memberId) {
+        return memberRepository.findById(memberId);
     }
 }

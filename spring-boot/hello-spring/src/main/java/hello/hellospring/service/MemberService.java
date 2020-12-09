@@ -3,10 +3,14 @@ package hello.hellospring.service;
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+// @Service : 스프링이 MemberService 를 생성할 때 Service 로 인지하여 스프링 컨테이너에 등록하고, 생성자를 호출한다.
+@Service
 public class MemberService { // cmd + shift + T : 테스트 케이스 자동 작성
 
     // Service 쪽 용어는 비즈니스에 의존적으로 설계함 - 비개발자가 와서 봐도 무슨 기능인지 알 수 있도록
@@ -20,8 +24,16 @@ public class MemberService { // cmd + shift + T : 테스트 케이스 자동 작
      */
     private final MemberRepository memberRepository;
 
-    // memberRepository 를 기존처럼 new 로 직접 생성해주는 것이 아니라 외부에서 넣어주도록 선언한다.
-    // MemberService 입장에서는 자기가 직접 Repository 를 선언하지 않는다. = Dependency Injection 의존성 주입
+    /*
+        @Autowired : 의존성 주입
+        MemberService 에도 MemberRepository 가 필요하며, 외부에서 불러오고 있다.
+        스프링이 MemberService 를 생성할 때 스프링에서 스프링 빈(컨테이너)에 저장되어있는 공통의 memberRepository 를 불러와 가져다준다.
+        MemberRepository 의 구현체인 MemoryMemberRepository 를 Service 에 주입해준다.
+
+        memberRepository 를 기존처럼 new 로 직접 생성해주는 것이 아니라 외부에서 넣어주도록 선언한다.
+        MemberService 입장에서는 자기가 직접 Repository 를 선언하지 않는다. = Dependency Injection 의존성 주입
+     */
+    @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
-@Repository
+// @Repository // DI - 자바 소스로 등록하기 위해 주석 처리
 public class MemoryMemberRepository implements MemberRepository {
 
     private static Map<Long, Member> store = new HashMap<>();

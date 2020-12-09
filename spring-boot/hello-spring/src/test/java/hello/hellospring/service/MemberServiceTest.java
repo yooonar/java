@@ -4,6 +4,7 @@ import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -13,12 +14,27 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceTest {
 
+    /*
+        메인에서 사용하는 Repository 와 공통으로 사용하기 위해 아래와 같이 변경해준다.
+        기존 소스
+            MemberService memberService = new MemberService();
+            MemoryMemberRepository memberRepository = new MemoryMemberRepository();
+     */
     // 서비스 필요
-    MemberService memberService = new MemberService();
+    MemberService memberService;
 
     // 만약 회원가입에서 이름을 "hello" 가 아닌 중복 회원 예외 메소드와 같은 "spring" 이라고 입력한다면 메모리에 계속 쌓이기 때문에 회원가입 테스트에서 오류가 날 것이다.
     // 그래서 clear 를 해줘야 한다. 현재는 Service 밖에 없기 때문에 Repository 를 불러와 clear 를 넣어줘야 한다.
-    MemoryMemberRepository memberRepository = new MemoryMemberRepository();
+    MemoryMemberRepository memberRepository;
+
+    // 동작하기 전에 실행
+    @BeforeEach
+    public void beforeEach() {
+        // 이 경우 테스트를 실행할 때마다 각각 생성해준다.(테스트는 독립적으로 실행되기 때문에)
+        memberRepository = new MemoryMemberRepository();
+        memberService = new MemberService(memberRepository);
+    }
+
     @AfterEach
     public void afterEach() {
         // 메소드가 실행될 때마다 초기화

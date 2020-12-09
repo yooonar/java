@@ -12,7 +12,19 @@ public class MemberService { // cmd + shift + T : 테스트 케이스 자동 작
     // Service 쪽 용어는 비즈니스에 의존적으로 설계함 - 비개발자가 와서 봐도 무슨 기능인지 알 수 있도록
     // Repository 쪽 용어는 기계적(개발)으로 설계함
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    /*
+        private final MemberRepository memberRepository = new MemoryMemberRepository();
+        위와 같이 MemoryMemberRepository를 인스턴로 생성했을 때 기능 자체에는 문제가 없지만
+        테스트 할 때 서로 다른 인스턴스를 바라보기 때문에 문제가 발생할 수 있다.
+        그렇기 때문에 테스트 할 때도 같은 Repository 를 사용할 수 있도록 아래와 같이 변경해야한다.
+     */
+    private final MemberRepository memberRepository;
+
+    // memberRepository 를 기존처럼 new 로 직접 생성해주는 것이 아니라 외부에서 넣어주도록 선언한다.
+    // MemberService 입장에서는 자기가 직접 Repository 를 선언하지 않는다. = Dependency Injection 의존성 주입
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     /**
      * 회원 가입

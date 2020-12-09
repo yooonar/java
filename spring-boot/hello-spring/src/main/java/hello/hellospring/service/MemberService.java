@@ -7,7 +7,7 @@ import hello.hellospring.repository.MemoryMemberRepository;
 import java.util.List;
 import java.util.Optional;
 
-public class MemberService {
+public class MemberService { // cmd + shift + T : 테스트 케이스 자동 작성
 
     // Service 쪽 용어는 비즈니스에 의존적으로 설계함 - 비개발자가 와서 봐도 무슨 기능인지 알 수 있도록
     // Repository 쪽 용어는 기계적(개발)으로 설계함

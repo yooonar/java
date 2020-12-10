@@ -1,8 +1,11 @@
 package hello.hellospring.controller;
 
+import hello.hellospring.domain.Member;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 // 스프링 컨테이너가 뜰 때 생성됨. 스프링 컨테이너가 가지고 있음
 @Controller
@@ -22,5 +25,24 @@ public class MemberController {
     @Autowired
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
+    }
+
+    @GetMapping("/members/new")
+    public String createForm() {
+        return "members/createMemberForm";
+    }
+
+    // post 방식으로 form 데이터를 전송받는 곳
+    @PostMapping("members/new")
+    public String create(MemberForm form) {
+        Member member = new Member();
+        member.setName(form.getName());
+
+        System.out.println("member.getName() = " + member.getName());
+        // 회원 가입
+        memberService.join(member);
+
+        // 회원가입 완료 후 메인으로 이동
+        return "redirect:/";
     }
 }

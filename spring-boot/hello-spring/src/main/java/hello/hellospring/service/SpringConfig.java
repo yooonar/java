@@ -2,12 +2,25 @@ package hello.hellospring.service;
 
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
+import hello.hellospring.repository.jdbcMemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.sql.DataSource;
 
 // 스프링 설정 관련 Annotation 으로 스프링 실행 시 해당 파일을 읽는다.
 @Configuration
 public class SpringConfig {
+
+    // 스프링부트가 application.properties 에 등록한 h2 db 설정을 보고 dataSource 를 만듦
+    private DataSource dataSource;
+
+    // 스프링부트에 주입
+    @Autowired
+    public SpringConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 
     // DI - Annotation 이 아닌 자바 코드로 직접 스프링 빈을 등록하는 방법
 
@@ -21,6 +34,10 @@ public class SpringConfig {
     // MemoryMemberRepository : 구현체
     @Bean
     public MemberRepository memberRepository() {
-        return new MemoryMemberRepository();
+        // h2 db
+        return new jdbcMemberRepository(dataSource);
+
+        // 메모리
+        // return new MemoryMemberRepository();
     }
 }

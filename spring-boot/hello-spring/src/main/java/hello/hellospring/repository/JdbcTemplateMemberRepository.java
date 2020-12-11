@@ -45,19 +45,23 @@ public class JdbcTemplateMemberRepository implements MemberRepository {
 
     @Override
     public Optional<Member> findById(Long id) {
-        List<Member> result = jdbcTemplate.query("SELECT * FROM member WHERE id = ?", memberRowMapper());
+        List<Member> result = jdbcTemplate.query("SELECT * FROM member WHERE id = ?", memberRowMapper(), id);
+
+        // .stream().findAny(); 의 결과값이 Optional 인 경우가 있기 때문에 반환형도 Optional 로 선언
         return result.stream().findAny();
     }
 
     @Override
     public Optional<Member> findByName(String name) {
-        List<Member> result = jdbcTemplate.query("SELECT * FROM member WHERE name = ?", memberRowMapper());
+        List<Member> result = jdbcTemplate.query("SELECT * FROM member WHERE name = ?", memberRowMapper(), name);
+
+        // .stream().findAny(); 의 결과값이 Optional 인 경우가 있기 때문에 반환형도 Optional 로 선언
         return result.stream().findAny();
     }
 
     @Override
     public List<Member> findAll() {
-        return null;
+        return jdbcTemplate.query("SELECT * FROM member", memberRowMapper());
     }
 
     private RowMapper<Member> memberRowMapper() {

@@ -81,6 +81,7 @@ class MemberServiceIntegrationTest {
         // then
     }
 
+    /*
     @Test
     void findMembers() {
     }
@@ -88,4 +89,5 @@ class MemberServiceIntegrationTest {
     @Test
     void findOne() {
     }
+    */
 }

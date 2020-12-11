@@ -5,12 +5,15 @@ import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 // @Service : 스프링이 MemberService 를 생성할 때 Service 로 인지하여 스프링 컨테이너에 등록하고, 생성자를 호출한다.
 // @Service // DI - 자바 소스로 등록하기 위해 주석 처리
+// @Transactional : 데이터를 저장하거나 변경할 때는 항상 트랜잭션이 필요하다.
+@Transactional
 public class MemberService { // cmd + shift + T : 테스트 케이스 자동 작성
 
     // Service 쪽 용어는 비즈니스에 의존적으로 설계함 - 비개발자가 와서 봐도 무슨 기능인지 알 수 있도록

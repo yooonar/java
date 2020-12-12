@@ -1,5 +1,6 @@
 package hello.hellospring.service;
 
+import hello.hellospring.aop.TimeTraceApp;
 import hello.hellospring.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -60,4 +61,12 @@ public class SpringConfig {
         // 메모리
         // return new MemoryMemberRepository();
     }
+
+    /*
+    // AOP 를 스프링빈에 직접 등록
+    @Bean
+    public TimeTraceApp timeTraceApp() {
+        return new TimeTraceApp();
+    }
+    */
 }

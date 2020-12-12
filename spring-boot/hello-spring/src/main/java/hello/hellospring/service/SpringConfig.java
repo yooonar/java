@@ -12,6 +12,8 @@ import javax.sql.DataSource;
 @Configuration
 public class SpringConfig {
 
+    private final MemberRepository memberRepository;
+
     // JPA 를 위해 EntityManager 선언
     EntityManager em;
 
@@ -20,9 +22,10 @@ public class SpringConfig {
 
     // 스프링부트에 주입
     @Autowired
-    public SpringConfig(DataSource dataSource, EntityManager em) {
+    public SpringConfig(DataSource dataSource, EntityManager em, MemberRepository memberRepository) {
         this.dataSource = dataSource;
         this.em = em;
+        this.memberRepository = memberRepository;
     }
 
     // DI - Annotation 이 아닌 자바 코드로 직접 스프링 빈을 등록하는 방법
@@ -30,13 +33,20 @@ public class SpringConfig {
     // @Bean : 수동으로 스프링 빈을 입력하라는 의미로 아래 로직 "new MemberService()" 를 호출하여 스프링 빈에 등록한다.
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberRepository());
+
+        // Spring Data JPA 에서는 그냥 리턴
+        return new MemberService(memberRepository);
+
+        // 메모리, h2 db, jdbc template, JPA 에서는 memberRepository 메소드를 호출
+        // return new MemberService(memberRepository());
     }
 
     // MemberRepository : 인터페이스
     // MemoryMemberRepository : 구현체
     @Bean
     public MemberRepository memberRepository() {
+
+        // Spring Data JPA
 
         // JPA
         return new JpaMemberRepository(em);

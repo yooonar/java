@@ -46,11 +46,14 @@ public class MemberService { // cmd + shift + T : 테스트 케이스 자동 작
      */
     public Long join(Member member) {
 
-        // 아래와 같이 함수 안에 따로 로직이 있는 경우 따로 메소드로 뽑는 것이 좋다. 단축키: 영역 드래그 + option + T -> Extract Method
-        // validateDuplicateMember() 메소드로 새로 추가됨
-        validateDuplicateMember(member); // 중복 회원 검증
+        long start = System.currentTimeMillis();
 
-        /*
+        try {
+            // 아래와 같이 함수 안에 따로 로직이 있는 경우 따로 메소드로 뽑는 것이 좋다. 단축키: 영역 드래그 + option + T -> Extract Method
+            // validateDuplicateMember() 메소드로 새로 추가됨
+            validateDuplicateMember(member); // 중복 회원 검증
+
+            /*
         // 같은 이름이 있는 중복 회원은 가입 불가
         Optional<Member> result = memberRepository.findByName(member.getName());
 
@@ -71,8 +74,15 @@ public class MemberService { // cmd + shift + T : 테스트 케이스 자동 작
         // 어차피 memberRepository.findByName(member.getName()) 를 반환하면 Optional 이기 때문에 바로 ifPresent 를 사용할 수 있다.
 
         */
-        memberRepository.save(member);
-        return member.getId();
+            memberRepository.save(member);
+            return member.getId();
+        } finally {
+            long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            // 회원 가입까지 걸리는 시간
+            System.out.println("join = " + timeMs + "ms");
+        }
+
     }
 
     private void validateDuplicateMember(Member member) {

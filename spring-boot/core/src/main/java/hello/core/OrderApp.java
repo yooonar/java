@@ -1,9 +1,7 @@
 package hello.core;
 
-import hello.core.member.Grade;
-import hello.core.member.Member;
-import hello.core.member.MemberService;
-import hello.core.member.MemberServiceImpl;
+import hello.core.discount.FixDiscountPolicy;
+import hello.core.member.*;
 import hello.core.order.Order;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
@@ -11,11 +9,17 @@ import hello.core.order.OrderServiceImpl;
 public class OrderApp {
 
     public static void main(String[] args) {
+        AppConfig appConfig = new AppConfig();
+
         // MemberServiceImpl 구현체를 MemberService 인터페이스로 받음
-        MemberService memberService = new MemberServiceImpl();
+        // MemberService memberService = new MemberServiceImpl();
+        // DI - 의존성 주입
+        MemberService memberService = appConfig.memberService();
 
         // OrderServiceImpl 구현체를 OrderService 인터페이스로 받음
-        OrderService orderService = new OrderServiceImpl();
+        // OrderService orderService = new OrderServiceImpl();
+        // DI - 의존성 주입 방식
+        OrderService orderService = appConfig.orderService();
 
         // 회원 저장
         Long memberId = 1L;

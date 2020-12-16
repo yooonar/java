@@ -1,6 +1,8 @@
 package hello.core;
 
+import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
+import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
 import hello.core.member.MemoryMemberRepository;
@@ -13,11 +15,21 @@ public class AppConfig {
 
     public MemberService memberService() {
         // 생성자 주입(연결)
-        return new MemberServiceImpl(new MemoryMemberRepository());
+        return new MemberServiceImpl(getMemberRepository());
+    }
+
+    // 소스 중복을 없애고 하나로 만들어 나중에 DB가 바뀌더라도 이 부분만 수정하면 되도록 함.
+    public MemberRepository getMemberRepository() {
+        return new MemoryMemberRepository();
     }
 
     public OrderService orderService() {
         // 생성자 주입(연결)
-        return new OrderServiceImpl(new MemoryMemberRepository(), new FixDiscountPolicy());
+        return new OrderServiceImpl(getMemberRepository(), discountPolicy());
+    }
+
+    // 소스 중복을 없애고 하나로 만들어 나중에 할인 정책이 바뀌더라도 이 부분만 수정하면 되도록 함.
+    public DiscountPolicy discountPolicy() {
+        return new FixDiscountPolicy();
     }
 }

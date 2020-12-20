@@ -50,6 +50,29 @@ public class ApplicationContextSameBeanFindTest {
         assertThat(memberRepository).isInstanceOf(MemberRepository.class);
     }
 
+    @Test
+    @DisplayName("특정 타입을 모두 조회하기")
+    void findAllBeanByType() {
+
+        // Map<key, value> 형식으로 받아옴
+        Map<String, MemberRepository> beansOfType = ac.getBeansOfType(MemberRepository.class);
+
+        for (String key : beansOfType.keySet()) {
+            System.out.println("key = " + key + " value = " + beansOfType.get(key));
+            /*
+            key = memberRepository1 value = hello.core.member.MemoryMemberRepository@2d9caaeb
+            key = memberRepository2 value = hello.core.member.MemoryMemberRepository@42a15bdc
+             */
+        }
+        System.out.println("beansOfType = " + beansOfType);
+        /*
+        beansOfType = {memberRepository1=hello.core.member.MemoryMemberRepository@2d9caaeb, memberRepository2=hello.core.member.MemoryMemberRepository@42a15bdc}
+         */
+
+        // beansOfType.size() : 타입이 2개여야 정상(memberRepository1(), memberRepository2())
+        assertThat(beansOfType.size()).isEqualTo(2);
+    }
+
     // static 쓴 이유 : ApplicationContextSameBeanFindTest 안에서만 사용
     @Configuration
     static class SameBeanConfig {

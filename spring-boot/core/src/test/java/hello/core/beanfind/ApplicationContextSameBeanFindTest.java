@@ -40,6 +40,16 @@ public class ApplicationContextSameBeanFindTest {
                 () -> ac.getBean(MemberRepository.class));
     }
 
+    @Test
+    @DisplayName("타입으로 조회 시 같은 타입이 둘 이상이면 빈 이름을 지정한다.")
+    void findBeanByName() {
+        // memberRepository1() 메소드 지정
+        MemberRepository memberRepository = ac.getBean("memberRepository1", MemberRepository.class);
+
+        // memberRepository1 이 MemberRepository 의 인스턴스냐?
+        assertThat(memberRepository).isInstanceOf(MemberRepository.class);
+    }
+
     // static 쓴 이유 : ApplicationContextSameBeanFindTest 안에서만 사용
     @Configuration
     static class SameBeanConfig {

@@ -23,6 +23,7 @@ public class ApplicationContextExtendsFindTest {
         // 오류 발생
         // DiscountPolicy bean = ac.getBean(DiscountPolicy.class);
 
+        // NoUniqueBeanDefinitionException 오류가 발생해야 정상
         assertThrows(NoUniqueBeanDefinitionException.class,
                 () -> ac.getBean(DiscountPolicy.class));
     }

@@ -40,6 +40,15 @@ public class ApplicationContextExtendsFindTest {
         assertThat(rateDiscountPolicy).isInstanceOf(RateDiscountPolicy.class);
     }
 
+    // 별로 좋은 방법은 아님
+    @Test
+    @DisplayName("특정 하위 타입으로 조회")
+    void findBeanBySubType() {
+        // RateDiscountPolicy 타입을 바로 지정
+        RateDiscountPolicy bean = ac.getBean(RateDiscountPolicy.class);
+        assertThat(bean).isInstanceOf(RateDiscountPolicy.class);
+    }
+
     // DiscountPolicy 타입이 두 개 존재하는 클래스
     @Configuration
     static class TestConfig {

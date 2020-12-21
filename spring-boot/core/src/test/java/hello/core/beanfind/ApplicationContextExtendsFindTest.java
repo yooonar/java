@@ -11,6 +11,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Map;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -47,6 +49,23 @@ public class ApplicationContextExtendsFindTest {
         // RateDiscountPolicy 타입을 바로 지정
         RateDiscountPolicy bean = ac.getBean(RateDiscountPolicy.class);
         assertThat(bean).isInstanceOf(RateDiscountPolicy.class);
+    }
+
+    @Test
+    @DisplayName("부모 타입으로 모두 조회")
+    void findAllBeanByParentType() {
+        Map<String, DiscountPolicy> beansOfType = ac.getBeansOfType(DiscountPolicy.class);
+
+        // DiscountPolicy 타입이 2개인지 확인
+        assertThat(beansOfType.size()).isEqualTo(2);
+
+        for (String key : beansOfType.keySet()) {
+            System.out.println("key = " + key + " value = " + beansOfType.get(key));
+            /*
+            key = rateDiscountPolicy value = hello.core.discount.RateDiscountPolicy@50de186c
+            key = fixDiscountPolicy value = hello.core.discount.FixDiscountPolicy@3f57bcad
+             */
+        }
     }
 
     // DiscountPolicy 타입이 두 개 존재하는 클래스

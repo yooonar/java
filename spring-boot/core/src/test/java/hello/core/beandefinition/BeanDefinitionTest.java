@@ -45,8 +45,10 @@ public class BeanDefinitionTest {
 
                 [xml 형식 출력]
                 beanDefinitionName = memberRepository
-                beanDefinition = Generic bean: class [hello.core.member.MemoryMemberRepository];
-                scope=; abstract=false;
+                beanDefinition = Generic
+                bean: class [hello.core.member.MemoryMemberRepository];
+                scope=;
+                abstract=false;
                 lazyInit=false;
                 autowireMode=0;
                 dependencyCheck=0;

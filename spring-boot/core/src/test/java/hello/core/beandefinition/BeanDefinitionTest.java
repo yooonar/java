@@ -9,6 +9,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class BeanDefinitionTest {
 
+    // class 형식
     // AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
 
     // xml 형식
@@ -25,6 +26,7 @@ public class BeanDefinitionTest {
             if(beanDefinition.getRole() == BeanDefinition.ROLE_APPLICATION) {
                 System.out.println("beanDefinitionName = " + beanDefinitionName + " beanDefinition = " + beanDefinition);
                 /*
+                [class 형식 출력]
                 beanDefinitionName = memberService
                 beanDefinition = Root
                 bean: class [null];

@@ -5,10 +5,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class BeanDefinitionTest {
 
-    AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+    // AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+
+    // xml 형식
+    GenericXmlApplicationContext ac = new GenericXmlApplicationContext("appConfig.xml");
 
     @Test
     @DisplayName("빈 설정 메타 정보 확인")
@@ -37,6 +41,22 @@ public class BeanDefinitionTest {
                 destroyMethodName=(inferred);
                 defined in hello.core.AppConfig
 
+                [xml 형식 출력]
+                beanDefinitionName = memberRepository
+                beanDefinition = Generic bean: class [hello.core.member.MemoryMemberRepository];
+                scope=; abstract=false;
+                lazyInit=false;
+                autowireMode=0;
+                dependencyCheck=0;
+                autowireCandidate=true;
+                primary=false;
+                factoryBeanName=null;
+                factoryMethodName=null;
+                initMethodName=null;
+                destroyMethodName=null;
+                defined in class path resource [appConfig.xml]
+
+                설명
                 BeanClassName: 생성할 빈의 클래스 명(자바 설정 처럼 팩토리 역할의 빈을 사용하면 없음)
                 factoryBeanName: 팩토리 역할의 빈을 사용할 경우 이름, 예) appConfig
                 factoryMethodName: 빈을 생성할 팩토리 메서드 지정, 예) memberService

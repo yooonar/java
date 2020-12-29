@@ -6,6 +6,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class SingletoneTest {
 
     @Test
@@ -29,7 +31,7 @@ public class SingletoneTest {
         */
 
         // memberService1 != memberService2 여야 정상
-        Assertions.assertThat(memberService1).isNotSameAs(memberService2);
+        assertThat(memberService1).isNotSameAs(memberService2);
 
         // memberService 안에 있는 MemberServiceImpl, memberRepository 각각 생성되기 때문에 총 4개의 객체가 생성된다.
     }
@@ -48,7 +50,7 @@ public class SingletoneTest {
         singletoneService1 = hello.core.singletone.SingletoneService@2473b9ce
         singletoneService2 = hello.core.singletone.SingletoneService@2473b9ce
         */
-        Assertions.assertThat(singletoneService1).isSameAs(singletoneService2);
+        assertThat(singletoneService1).isSameAs(singletoneService2);
         // same : 자바의 == 비교
         // equal : 자바의 equals 비교
     }

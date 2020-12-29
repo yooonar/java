@@ -33,4 +33,23 @@ public class SingletoneTest {
 
         // memberService 안에 있는 MemberServiceImpl, memberRepository 각각 생성되기 때문에 총 4개의 객체가 생성된다.
     }
+
+    @Test
+    @DisplayName("싱글톤 패턴을 적용한 객체 사용")
+    void singletoneServiceTest() {
+        // new SingletoneService(); 하는 경우 private 형식이라 오류 발생
+        SingletoneService singletoneService1 = SingletoneService.getInstance();
+        SingletoneService singletoneService2 = SingletoneService.getInstance();
+
+        System.out.println("singletoneService1 = " + singletoneService1);
+        System.out.println("singletoneService2 = " + singletoneService2);
+        /*
+        둘 다 2473b9ce 로 같은 객체의 인스턴스가 반환됨
+        singletoneService1 = hello.core.singletone.SingletoneService@2473b9ce
+        singletoneService2 = hello.core.singletone.SingletoneService@2473b9ce
+        */
+        Assertions.assertThat(singletoneService1).isSameAs(singletoneService2);
+        // same : 자바의 == 비교
+        // equal : 자바의 equals 비교
+    }
 }

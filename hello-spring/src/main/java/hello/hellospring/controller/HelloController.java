@@ -33,6 +33,11 @@ public class HelloController {
     @ResponseBody
     public Hello helloApi(@RequestParam("name") String name) {
         Hello hello = new Hello(); // 객체 생성
+        /*
+        HelloController.Hello hello = new HelloController.Hello(); 가 아닌 Hello hello = new Hello(); 로 객체를 생성하는 이유
+        외부 클래스에서는 내부 클래스 객체 생성이 바로 가능하기 때문이다.
+        다른 패키지나 클래스에서는 그렇게 생성하는 것이 맞다.
+         */
         hello.setName(name); // 파라미터로 넘어온 name을 저장함
         return hello; // 객체를 json 방식으로 리턴함
     }

@@ -14,7 +14,7 @@ public class MemoryMemberRepository implements MemberRepository {
     public Member save(Member member) {
         // 이름은 고객이 직접 입력하기 때문에 save()로 넘어올 때부터 있다.
         member.setId(++sequence); // sequence 하나 증가시킨 후 아이디 값을 넣어 세팅해준다.
-        store.put(member.getId(), member); // store 에 put 시킨다.
+        store.put(member.getId(), member); // store 에 member 객체 인스턴스를 저장한다.
         return member;
     }
 
@@ -34,5 +34,9 @@ public class MemoryMemberRepository implements MemberRepository {
     public List<Member> findAll() {
         // store 는 Map 형식이지만 실무에서는 loop 돌리기도 편해서 List 가 많이 쓰임
         return new ArrayList<>(store.values()); // store.values() == Member
+    }
+
+    public void clearStore() {
+        store.clear(); // store 비우기(테스트할 때 afterEach 메소드에서 사용함)
     }
 }

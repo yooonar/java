@@ -13,8 +13,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MemberServiceTest {
     // 1. 인스턴스를 각각 생성하는 방법
-    MemberService memberService = new MemberService();
-    MemoryMemberRepository memberRepository = new MemoryMemberRepository();
+    // MemberService memberService = new MemberService();
+    // MemoryMemberRepository memberRepository = new MemoryMemberRepository();
+
+    // 2. 인스턴스를 공통으로 사용하는 방법
+    MemberService memberService;
+    MemoryMemberRepository memberRepository;
+
+    @BeforeEach
+    public void beforeEach() {
+        // 테스트 할 때마다 독립적으로 생성되어야 하기 때문에 beforeEach 안에 들어간다.
+        memberRepository = new MemoryMemberRepository();
+        memberService = new MemberService(memberRepository);
+    }
 
     @AfterEach
     public void afterEach(){

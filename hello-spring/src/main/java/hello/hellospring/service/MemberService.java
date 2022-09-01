@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+// 스프링이 @Service 어노테이션을 보고 처음 실행할 때 MemberService 객체를 생성해서 대기함
+// 이것을 스프링 컨테이너에서 스프링 빈이 관리된다고 한다.
 @Service
 public class MemberService {
     // 1. 인스턴스를 직접 생성하는 방법

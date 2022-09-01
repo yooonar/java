@@ -8,7 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 public class MemberService {
-    public final MemberRepository memberRepository = new MemoryMemberRepository();
+    // 1. 인스턴스를 직접 생성하는 방법
+    // 서비스 내에서 생성하면 테스트 할 때 다른 인스턴스로 만들어야 해서 문제가 발생할 수 있다.
+    private final MemberRepository memberRepository = new MemoryMemberRepository();
+
 
     /**
      * 회원 가입

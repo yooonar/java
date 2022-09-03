@@ -11,7 +11,7 @@ import java.util.Optional;
 
 // 스프링이 @Service 어노테이션을 보고 처음 실행할 때 MemberService 객체를 생성해서 대기함
 // 이것을 스프링 컨테이너에서 스프링 빈이 관리된다고 한다.
-@Service
+// @Service
 public class MemberService {
     // 1. 인스턴스를 직접 생성하는 방법
     // 서비스 내에서 생성하면 테스트 할 때 다른 인스턴스로 만들어야 해서 문제가 발생할 수 있다.
@@ -24,7 +24,7 @@ public class MemberService {
 
     // @Autowired: 스프링 컨테이너에서 MemberRepository를 자동으로 가져온다.
     // 서비스와 리포지토리를 연결시켜줌 = 의존성 주입(Dependency Injection)
-    @Autowired
+    // @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }

@@ -12,6 +12,16 @@ import javax.sql.DataSource;
 @Configuration
 public class SpringConfig {
 
+    private final MemberRepository memberRepository;
+
+    @Autowired
+    public SpringConfig(MemberRepository memberRepository) {
+        // SpringDataJpa에서 사용하는 리포지토리
+        // 그냥 주입(인젝션) 받으면 SpringDataJPA가 자동으로 등록해준다.
+        this.memberRepository = memberRepository;
+    }
+
+    /*
     // jpa 에서 사용하는 엔티티 매니저
     private EntityManager em;
 
@@ -19,6 +29,7 @@ public class SpringConfig {
     public SpringConfig(EntityManager em) {
         this.em = em;
     }
+    */
 
     /*
     // jdbc, jdbcTemplate 에서 사용하는 DataSource
@@ -33,16 +44,19 @@ public class SpringConfig {
     // MemberService를 스프링 빈에 등록하는 부분
     @Bean
     public MemberService memberService() {
-        return new MemberService(memberRepository());
+        return new MemberService(memberRepository); // SpringDataJpa 에서 사용
+        // return new MemberService(memberRepository()); // memory, jdbc, jdbcTemplate, jpa 에서 사용
     }
-
+/*
+// memory, jdbc, jdbcTemplate, jpa 에서만 사용
     // memberRepository를 스프링 빈에 등록하는 부분
     // memberService() 메소드에 인자값으로 넘어가야함
     @Bean
     public MemberRepository memberRepository() {
-        return new JpaMemberRepository(em); // jpa를 이용한 개발
+        // return new JpaMemberRepository(em); // jpa를 이용한 개발
         // return new JdbcTemplateMemberRepository(dataSource); // jdbcTemplate를 이용한 개발
         // return new JdbcMemberRepository(dataSource); // jdbc를 이용한 개발
         // return new MemoryMemberRepository(); // 메모리를 이용한 개발
     }
+ */
 }

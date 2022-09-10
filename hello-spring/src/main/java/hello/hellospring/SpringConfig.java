@@ -1,6 +1,7 @@
 package hello.hellospring;
 
 import hello.hellospring.repository.JdbcMemberRepository;
+import hello.hellospring.repository.JdbcTemplateMemberRepository;
 import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import hello.hellospring.service.MemberService;
@@ -30,7 +31,8 @@ public class SpringConfig {
     // memberService() 메소드에 인자값으로 넘어가야함
     @Bean
     public MemberRepository memberRepository() {
-        return new JdbcMemberRepository(dataSource); // jdbc를 이용한 개발
+        return new JdbcTemplateMemberRepository(dataSource); // jdbcTemplate를 이용한 개발
+        // return new JdbcMemberRepository(dataSource); // jdbc를 이용한 개발
         // return new MemoryMemberRepository(); // 메모리를 이용한 개발
     }
 }

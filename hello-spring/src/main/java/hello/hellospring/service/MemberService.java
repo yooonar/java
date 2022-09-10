@@ -5,6 +5,7 @@ import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,7 @@ import java.util.Optional;
 // 스프링이 @Service 어노테이션을 보고 처음 실행할 때 MemberService 객체를 생성해서 대기함
 // 이것을 스프링 컨테이너에서 스프링 빈이 관리된다고 한다.
 // @Service
+@Transactional // jpa는 모든 변경이 트랜잭션 안에서 이루어져야 한다.
 public class MemberService {
     // 1. 인스턴스를 직접 생성하는 방법
     // 서비스 내에서 생성하면 테스트 할 때 다른 인스턴스로 만들어야 해서 문제가 발생할 수 있다.

@@ -1,5 +1,6 @@
 package hello.hellospring;
 
+import hello.hellospring.aop.TimeTraceAop;
 import hello.hellospring.repository.*;
 import hello.hellospring.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,13 @@ public class SpringConfig {
         return new MemberService(memberRepository); // SpringDataJpa 에서 사용
         // return new MemberService(memberRepository()); // memory, jdbc, jdbcTemplate, jpa 에서 사용
     }
+/*
+    // 메소드 소요시간 계산하는 부분(AOP를 이용해 공통으로 호출)
+    @Bean
+    public TimeTraceAop timeTraceAop() {
+        return new TimeTraceAop();
+    }
+*/
 /*
 // memory, jdbc, jdbcTemplate, jpa 에서만 사용
     // memberRepository를 스프링 빈에 등록하는 부분

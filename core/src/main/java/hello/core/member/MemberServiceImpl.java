@@ -9,6 +9,7 @@ public class MemberServiceImpl implements MemberService {
     실제 할당하는 부분이 구현체(MemoryMemberRepository)를 의존하고 있다.
     결과적으로 MemberServiceImpl는 MemberRepository(추상화), MemoryMemberRepository(구체화) 둘 다 의존하게 되어 DIP를 위반하고 있다.
     */
+
     @Override
     public void join(Member member) {
         memberRepository.save(member);

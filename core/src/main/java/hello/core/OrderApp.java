@@ -10,9 +10,14 @@ import hello.core.order.OrderServiceImpl;
 
 public class OrderApp {
     public static void main(String[] args) {
-        MemberService memberService = new MemberServiceImpl();
-        OrderService orderService = new OrderServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
 
+        /*
+        MemberService memberService = new MemberServiceImpl(); // 구현체 의존(DIP 위배)
+        OrderService orderService = new OrderServiceImpl(); // 구현체 의존(DIP 위배)
+        */
         Long memberId = 1L;
         Member member = new Member(memberId, "memberA", Grade.VIP); // VIP 등급 회원
         memberService.join(member); // 회원가입

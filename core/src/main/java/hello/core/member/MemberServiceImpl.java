@@ -3,7 +3,12 @@ package hello.core.member;
 public class MemberServiceImpl implements MemberService {
     // 관례: 구현체가 하나만 있는 경우 인터페이스명 뒤에 Impl 을 붙여준다.
 
-    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final MemberRepository memberRepository; // 인터페이스만 있음(추상화에만 의존)
+
+    public MemberServiceImpl(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository; // 생성자를 통해 구현체를 결정함
+    }
+
     /*
     private final MemberRepository memberRepository = new MemoryMemberRepository();
     실제 할당하는 부분이 구현체(MemoryMemberRepository)를 의존하고 있다.
